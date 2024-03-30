@@ -1,0 +1,92 @@
+03.pipes
+
+03-a-0200.txt
+
+cat /etc/passwd | sort -t ':' -k 3,3
+
+03-a-0201.txt
+
+cat /etc/passwd | sort -t ':' -k 3,3 -n
+
+03-a-210.txt
+
+cat /etc/passwd | cut -d ':' -f 1,5
+
+// cat /etc/passwd | cut -d ':' -f 1,5 | grep -F 'Георги ' | wc -l	// Count 'Георги'- тата
+
+03-a-211.txt
+
+cat /etc/passwd | cut -c 2-6
+
+03-a-212.txt
+
+cat /etc/passwd | cut -d ':' -f 1,6
+
+// cat /etc/passwd | cut -d ':' -f 1,6 | grep -v 'students' | wc -l	// Count all non-student users
+
+03-a-213.txt
+
+cat /etc/passwd | cut -d '/' -f 2
+
+03-a-1500.txt
+
+cat /etc/passwd | wc -c
+cat /etc/passwd | wc -m
+cat /etc/passwd | wc -l
+
+03-a-2000.txt
+
+1. head -n 12 /etc/passwd
+2. head -c 26 /etc/passwd
+3. head -n -4 /etc/passwd
+4. tail -n 17 /etc/passwd
+5. head -n 151 /etc/passwd | tail -n 1
+6. head -n 13 /etc/passwd | tail -n 1 | tail -c 5
+
+03-a-3000.tzt
+
+1. df -P > ~/df_result
+2. tail -n +2 df_result | sort -n -k2,2
+
+03-a-3100.txt
+
+cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1 > ~/users
+
+03-a-3500.txt
+
+cat /etc/passwd | cut -d ':' -f 1 | tr a-z A-Z
+
+03-a-5000.txt
+
+1. cat /etc/passwd | grep -F "$(whoami)"
+2. cat /etc/passwd | grep -F "$(whoami)" -B 2
+3. cat /etc/passwd | grep -F "$(whoami)" -B 2 -A 3
+
+03-a-5001.txt
+
+cat /etc/passwd | grep -v -F '/bin/bash' | cut -d ':' -f 7 | wc -l
+
+03-a-5002.txt
+
+cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1 | cut -d ' ' -f 2 | grep '......'
+
+03-a-5003.txt
+
+cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1 | cut -d ' ' -f 2 | grep -v '........'
+
+# v2
+cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1 | cut -d ' ' -f 2 | egrep '^.{0,8}$'
+
+Custom problem #1 (count all students with old faculty numbers): 
+
+cat /etc/passwd | cut -d ':' -f 1 | egrep  '^s[0-9]{,6}$' | wc -l
+
+03-a-5004.txt
+
+cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1 | cut -d ' ' -f 2 | egrep '^.{0,8}$' | xargs -I {} grep -F {} /etc/passwd
+
+03-b-9300.txt
+// not fully correct (matches 16, not 12)
+
+cat 03-b-9300-solution | grep -E --color '^[a-zA-Z._0-9-]+(\.[a-zA-Z_0-9-]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z0-9]+$' | wc -l
+
