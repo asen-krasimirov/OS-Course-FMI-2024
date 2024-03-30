@@ -58,5 +58,3 @@ rm -rf c_start.tar
 find /etc -type f -exec wc -l '{}' \;
 
 
-
-

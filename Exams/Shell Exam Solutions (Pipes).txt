@@ -1,0 +1,55 @@
+Shell Exam Solutions
+
+2016-SE-01
+
+cat /tmp/phillip-j-fry.txt  | grep -E '[02468]+' | grep -E -v '[a-w]' | wc -l
+
+2017-IN-01
+
+find / -user $(whoami) 2> /dev/null | wc -l
+
+2017-IN-02
+
+a) find . -size 0c -exec rm -i '{}' ';'
+b) find ~ -exec wc -c '{}' 2> /dev/null ';' | sort -nr | head -n 5 | cut -d ' ' -f 2
+
+2017-IN-03
+
+cat /etc/passwd | grep -E '^([^:]+:){4}[^ ]+ [^ ]+а\>,*I:' | cut -c 3,4 | sort | uniq -c | sort -n | tail -n 1
+
+2017-SE-01
+
+find . --maxdepth 1 -printf '%n %f \n' 2> /dev/null | tail -n +2 | sort -rt ' ' -n -k 1 | head -n 5 | cut -d ' ' -f 2
+
+2018-SE-01
+
+find ~ -type d -exec chmod 0022 '{}' \; 	// Gosho's solution find ~ -type d -exec chmod g-w,o-w '{}' \;
+
+2018-SE-02
+
+find . -printf '%C@ %i\n' | sort -t ' ' -n -k 1,1 -r | head | cut -d ' ' -f 2	// find pesho home directory for full solution
+
+2018-SE-03
+
+cat studentsMod.txt | grep -E '([^:]*:){5}/home/SI' | sort -t ':' -k 1 -n | awk -v 'FS=:' '{split($5,a,","); print a[1]":"$6}'	// solution, except first part (unclear)
+
+// cat /etc/passwd | sort -t ':' -k 3 | head -n 201 | tail -n 1 | cut -d ':' -f4 // get group for first part of problem
+
+2019-SE-01
+
+cat planets.txt | tail -n +2 | sort -t ';' -n -k 3 | tail -n 1 | cut -d ';' -f 2 | xargs -I{} grep -E '^[a-z]*;{}' planets.txt | sort -t ';' -k 3 | head -n 1 | awk -v 'FS=;' '{print $1 "\t" $4}'
+
+2019-SE-02
+
+cat /etc/passwd | grep -E 'SI' | awk -v 'FS=:' '{split($5,a,","); split($6,b,"/"); split(b[4],c,"s"); print c[2] " " a[1]}'
+
+// Only cutting. Have to add check for time interval 
+
+// Full Solution (with mock interval to suit current data in /etc/passwd):
+
+cat /etc/passwd | grep -E 'SI' | cut -d ':' -f 6 | xargs -I {} stat --printf '%Z %n\n' {} | awk '$1>1710000000 && $1<1710500000{print $2}' | xargs -I {} grep -E '{}' /etc/passwd | awk -v 'FS=:' '{split($5,a,","); split($6,b,"/"); split(b[4],c,"s"); print c[2] " " a[1]}'
+
+2023-CE-01
+
+find / -user "$(whoami)" 2> /dev/null | egrep "\.blend[0-9]+&"
+
