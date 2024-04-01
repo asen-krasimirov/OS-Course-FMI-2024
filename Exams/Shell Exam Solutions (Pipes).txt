@@ -27,7 +27,7 @@ find ~ -type d -exec chmod 0022 '{}' \; 	// Gosho's solution find ~ -type d -exe
 
 2018-SE-02
 
-find . -printf '%C@ %i\n' | sort -t ' ' -n -k 1,1 -r | head | cut -d ' ' -f 2	// find pesho home directory for full solution
+find . -links +1 -printf '%C@ %i\n' | sort -t ' ' -n -k 1,1 -r | head | cut -d ' ' -f 2	// find pesho home directory for full solution
 
 2018-SE-03
 
@@ -48,6 +48,14 @@ cat /etc/passwd | grep -E 'SI' | awk -v 'FS=:' '{split($5,a,","); split($6,b,"/"
 // Full Solution (with mock interval to suit current data in /etc/passwd):
 
 cat /etc/passwd | grep -E 'SI' | cut -d ':' -f 6 | xargs -I {} stat --printf '%Z %n\n' {} | awk '$1>1710000000 && $1<1710500000{print $2}' | xargs -I {} grep -E '{}' /etc/passwd | awk -v 'FS=:' '{split($5,a,","); split($6,b,"/"); split(b[4],c,"s"); print c[2] " " a[1]}'
+
+2020-SE-02
+
+cat spacex.txt | grep -F "$(cat spacex.txt | grep -F 'Failure' | cut -d '|' -f 2 | sort | uniq -c | sort -n | tail -n 1 | awk '{print $2}')" | sort -t '|' -n -r -k 1 | head -n 1 | awk -v 'FS=|' '{print $3":"$4}'
+
+2022-CE-01
+
+find ~ -maxdepth 1 -type f -user "$(whoami)" -exec chmod o-w '{}' ';'
 
 2023-CE-01
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-[[ $# -ge 1 ]] || { echo 'skript should take at least 1 arg'; exit 1; }
+[[ $# -ge 1 ]] || { echo 'script should take at least 1 arg'; exit 1; }
 
-[[ $# -le 2 ]] || { echo 'skript should take at most 2 args'; exit 2; }
+[[ $# -le 2 ]] || { echo 'script should take at most 2 args'; exit 2; }
 
 [[ -d $1 ]] || { echo '1st arg should be a directory'; exit 3; }
 
