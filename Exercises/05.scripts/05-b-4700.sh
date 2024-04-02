@@ -8,9 +8,7 @@
 
 if [[ $# == 2 ]]; then
         [[ $2 =~ ^.$ ]] || { echo '2nd arg should be a single char delimiter'; exit 4; }
-fi
 
-if [[ $# == 2 ]]; then
         delimiter="${2}"
 else
         delimiter=" "
