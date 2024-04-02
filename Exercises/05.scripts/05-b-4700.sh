@@ -6,7 +6,15 @@
 
 [[ $1 =~ ^[0-9]+$ ]] || { echo '1st arg should be a number'; exit 3; }
 
-[[ $2 =~ ^.$ ]] || { echo '2nd arg should be a single char delimiter'; exit 4; }
+if [[ $# == 2 ]]; then
+        [[ $2 =~ ^.$ ]] || { echo '2nd arg should be a single char delimiter'; exit 4; }
+fi
+
+if [[ $# == 2 ]]; then
+        delimiter="${2}"
+else
+        delimiter=" "
+fi
 
 wordLen="$(echo $1 | wc -m)"
 wordLen="$(( wordLen - 1 ))"
@@ -23,7 +31,7 @@ while read digit; do
 
         if [[ $ctr -eq 3 ]]; then
                 [[ ${digitCtr} -ne ${wordLen} ]] || { continue; }
-                newNum="${newNum}$2"
+                newNum="${newNum}${delimiter}"
                 ctr="0"
         fi
 done < <(echo "$1" | rev | grep -E -o '.')
