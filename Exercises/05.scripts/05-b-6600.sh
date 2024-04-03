@@ -9,7 +9,6 @@ while read file1; do
                 continue
         fi
 
-
         while read file2; do
                 if [[ ! -e "${file2}" ]]; then
                         continue
