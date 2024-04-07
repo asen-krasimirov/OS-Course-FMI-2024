@@ -82,4 +82,8 @@ while read file; do
         SN="$(getSN "$content")"
         key="$(getKey "$content")"
 
+        echo "${hostname},${phy},${vlans},${hosts},${failover},${VPN},${peers},${VLAN},${license},${SN},${key}" >> "$1"
 
+done < <(find "$2" -type f -name "*.log")
+
+cat "$1"
