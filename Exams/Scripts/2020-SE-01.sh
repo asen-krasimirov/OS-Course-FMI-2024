@@ -35,7 +35,7 @@ getVLAN() {
 
 getLicense() {
         row="$(echo "$1" | head -n 9 | tail -n 1)"
-        echo "$row" | sed -E 's/This platform has a //' | sed -E 's/This platform has an //' | sed -E 's/ license.//'
+        echo "$row" | sed -E 's/This platform has a[n]{0,1} //' | sed -E 's/ license.//'
 }
 
 getSN() {
