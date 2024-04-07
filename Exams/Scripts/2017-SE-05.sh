@@ -6,7 +6,6 @@
 
 getGlobalVersion() {
         version="$(echo "$1" | cut -d '-' -f 2)"
-        version="$(echo $version | tr -d '.')"
         echo $version
 }
 
@@ -18,6 +17,6 @@ while read file; do
 
 done < <(find "$1" -maxdepth 1 -regex ".*vmlinuz\-[0-9]+\.[0-9]+\.[0-9]+\-${2}$" -exec basename "{}" \;)
 
-cat "${sortFile}" | sort -t ' ' -k 2,2 | tail -n 1 | cut -d ' ' -f 1
+cat "${sortFile}" | sort -V -t ' ' -k 2,2 | tail -n 1 | cut -d ' ' -f 1
 
 rm "$sortFile"
