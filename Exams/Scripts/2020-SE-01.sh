@@ -85,5 +85,3 @@ while read file; do
         echo "${hostname},${phy},${vlans},${hosts},${failover},${VPN},${peers},${VLAN},${license},${SN},${key}" >> "$1"
 
 done < <(find "$2" -type f -name "*.log")
-
-cat "$1"
