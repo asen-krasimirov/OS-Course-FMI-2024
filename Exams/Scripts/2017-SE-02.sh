@@ -9,7 +9,7 @@
 [[ "$(dir -C "$2")" =~ ^$ ]] || { echo '2nd arg (dir) should not have any files in it' >&2; exit 4; }
 
 if [[ "$(whoami)" != root ]]; then
-        echo 'script should be run as a root';
+        echo 'script should be run as a root' >&2;
         exit 5;
 fi
 
