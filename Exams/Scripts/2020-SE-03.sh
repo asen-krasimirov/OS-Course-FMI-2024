@@ -28,3 +28,4 @@ else
         find "${1}/packages" -name "*${toRemove}\.tar\.xz" -exec rm '{}' \;
 fi
 
+sort -r -t ' ' -k 1,1 "${1}/db" -o "${1}/db"
