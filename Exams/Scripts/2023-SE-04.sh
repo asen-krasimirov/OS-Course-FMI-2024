@@ -39,8 +39,6 @@ while read data; do
                 hasDelYet=0
         fi
 
-
-
 done < <(cat "$heshes" | sort)
 
 echo "Dedublicated groups: $groupCount"
