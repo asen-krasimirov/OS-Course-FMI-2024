@@ -7,6 +7,14 @@ moveImages() {
         done < <(cat "$1")
 }
 
+callMoveImages() {
+        # 1- lib 2- intStart 3- intEnd 4- toMove
+        dirName="${1}/${2}_${3}"
+        mkdir "$dirName"
+        moveImages "$4" "$dirName"
+        echo -n "" > "$4"
+}
+
 [[ $# == 2 ]] || { echo 'script takes 2 args' >&2; exit 1; }
 
 [[ -d "$1" ]] || { echo '1st arg should be a dir' >&2; exit 2; }
@@ -29,11 +37,7 @@ while read -r fullDate name; do
 
         if [[ "$date" != "$checkDate" ]] && [[ "$date" != "$checkNextDate" ]]; then
                 if [[ "$intStart" != "" ]]; then
-                        dirName="${2}/${intStart}_${intEnd}"
-                        mkdir "$dirName"
-
-                        moveImages "$toMove" "$dirName"
-                        echo -n "" > "$toMove"
+                        callMoveImages "$2" "$intStart" "$intEnd" "$toMove"
                 fi
 
                 intStart="$date"
@@ -49,10 +53,7 @@ while read -r fullDate name; do
 done < <(find "$1" -type f -name '*.jpg' -printf "%TF_%TT %p\n" | sort)
 
 if [[ "$intStart" != "" ]]; then
-        dirName="${2}/${intStart}_${intEnd}"
-        mkdir "$dirName"
-        moveImages "$toMove" "$dirName"
-        echo -n "" > "$toMove"
+        callMoveImages "$2" "$intStart" "$intEnd" "$toMove"
 fi
 
 rm "$toMove"
