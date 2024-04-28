@@ -7,8 +7,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <stdio.h>
-
 int safeOpen(const char*, int, int);
 void safeCopyContent(int, const char*, int, const char*);
 char* parseFilePath(const char*, const char*);
