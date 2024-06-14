@@ -4,11 +4,13 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdbool.h>
+#include <sys/stat.h>
 
 #include <stdio.h>
 
 int safeOpen(char*, int, int);
 void safeLseek(int, int, int);
+int getFileSize(int);
 
 int safeOpen(char* fileName, int flags, int mode) {
         int fd;
@@ -24,6 +26,14 @@ void safeLseek(int fd, int offset, int whence) {
         }
 }
 
+int getFileSize(int fd) {
+        struct stat s;
+        if (fstat(fd, &s) < 0) {
+                err(7, "error occured while stating");
+        }
+        return s.st_size;
+}
+
 int main(int argc, char** argv) {
         if (argc != 3 + 1) {
                 errx(1, "args should be 3");
@@ -35,6 +45,12 @@ int main(int argc, char** argv) {
 
         int fd1 = safeOpen(dictFileName, O_RDONLY, 0);
         int fd2 = safeOpen(idxFileName, O_RDONLY, 0);
+
+        int idxFileSize = getFileSize(fd2);
+
+        if (idxFileSize % sizeof(uint32_t) != 0) {
+                errx(8, "not formatted index file!");
+        }
 
         uint32_t indexes[1024];
         uint32_t idx;
