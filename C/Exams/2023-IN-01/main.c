@@ -1,12 +1,11 @@
-#include <err.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include <stdio.h>
 
 const char* L[3] = {
-        "tic\n",
-        "tac\n",
+        "tic ",
+        "tac ",
         "toe\n"
 };
 
@@ -114,7 +113,6 @@ int main(int argc, char** argv) {
                 if (toPrintIdx == 0) {
                         printTic(ctr);
                 } else {
-                        printf("child idx: %d , words idx: %d\n", ctr % (NC + 1), ctr % 3);
                         if (write(parentToChildFds[toPrintIdx][1], &ctr, sizeof(ctr)) < 0) {
                                 err(7, "can't read");
                         }
@@ -143,3 +141,5 @@ int main(int argc, char** argv) {
 
         return 0;
 }
+
+
